@@ -232,6 +232,13 @@
             }
         }
 
+        function conditionalDrop(e) {
+            if (dragPoint && dragPoint.series.options.allowDragOutsideChartArea) {
+                return;
+            }
+            drop(e);
+        }
+        
         // Kill animation on first drag when chart.animation is set to false.
         chart.redraw();
 
@@ -242,7 +249,7 @@
         addEvent(container, 'touchstart', mouseDown);
         addEvent(document, 'mouseup', drop);
         addEvent(document, 'touchend', drop);
-        addEvent(container, 'mouseleave', drop);
+        addEvent(container, 'mouseleave', conditionalDrop);
     });
 
     /**
